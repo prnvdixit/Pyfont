@@ -50,7 +50,6 @@ filename = "x.png"
 cv2.imwrite(filename, image)
 
 text = pytesseract.image_to_string(Image.open(filename))
-os.remove(filename)
 print(text)
 
 cv2.imshow("Image", image)
