@@ -12,19 +12,19 @@ import os
 import sys
 import subprocess
 
-def downscale_image(args):
-    
-    DPI = 300
-    height, width, _ = image.shape
-    
-    temp_path = os.getcwd() + '/temp.jpeg'
-    cmd = ["convert", "-units", "PixelsPerInch", args["image"], "-density", str(DPI), temp_path]
-    subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE).wait()
-    
-    downscaled_image = cv2.imread(temp_path)
-    os.remove(temp_path)
- 
-    return downscaled_image
+#def downscale_image(args):
+#    
+#    DPI = 300
+#    height, width, _ = image.shape
+#    
+#    temp_path = os.getcwd() + '/temp.jpeg'
+#    cmd = ["convert", "-units", "PixelsPerInch", args["image"], "-density", str(DPI), temp_path]
+#    subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE).wait()
+#    
+#    downscaled_image = cv2.imread(temp_path)
+#    os.remove(temp_path)
+#
+#    return downscaled_image
 
 
 ap = argparse.ArgumentParser()
