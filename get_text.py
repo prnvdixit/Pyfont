@@ -4,12 +4,13 @@ import imutils
 
 import pytesseract
 
+import numpy as np
+
 import argparse
 
 import os
 import sys
 import subprocess
-
 
 def downscale_image(args):
     
@@ -26,46 +27,33 @@ def downscale_image(args):
     return downscaled_image
 
 
-def crop_to_text(image):
-    return
-
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--image", required=True,
     help="path to image to get text from")
 args = vars(ap.parse_args())
 
 image = cv2.imread(args["image"])
+#cv2.imshow("Input image", image)
 
-cv2.imshow("Input image", image)
-
-# Resize if required for best detection (from docs)
-downscaled_image = downscale_image(args)
-cv2.imshow("Resized image", downscaled_image)
-
-#cropped_image = crop_to_text(image)
 #deskewed_cropped_image = fix_skewness(cropped_image)
 
-# Convert to Grayscale
-gray = cv2.cvtColor(downscaled_image, cv2.COLOR_BGR2GRAY)
+#image = downscale_image(args)
+image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+image = cv2.fastNlMeansDenoising(image, None, 10, 3, 7)
+
+cv2.imshow("Gray", image)
+
+image = cv2.adaptiveThreshold(image, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 41, 10) 
 
 
-#gray = cv2.threshold(gray, 0, 255,
-#    cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+filename = "x.png"
+cv2.imwrite(filename, image)
 
+text = pytesseract.image_to_string(Image.open(filename))
+os.remove(filename)
+print(text)
 
-gray = cv2.medianBlur(gray, 3)
-
-#cv2.imshow("Blurred Image", gray)
-
-#filename = "x.png"
-#cv2.imwrite(filename, gray)
-
-#text = pytesseract.image_to_string(Image.open(filename))
-#os.remove(filename)
-#print(text)
-
-#cv2.imshow("Image", image)
-#cv2.imshow("Output", gray)
+cv2.imshow("Image", image)
 
 if cv2.waitKey(0) & 0xFF == 'q':
     sys.exit()
