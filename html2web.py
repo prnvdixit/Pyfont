@@ -36,4 +36,4 @@ class Screenshot(QWebView):
         self._loaded = True
 
 s = Screenshot()
-s.capture('test.html', 'website3.png')
+s.capture('test.html', 'UbuntuMonoHTML.png')

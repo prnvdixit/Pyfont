@@ -26,7 +26,7 @@ def min_bound_rect(image):
     r = float(cv2.countNonZero(mask[y:y+h, x:x+w])) / (w * h)
 
     if r > 0.45 and w > 8 and h > 8:
-        cv2.imshow('rects', image[y:y+h, x:x+w])
+        return image[y:y+h, x:x+w]
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--image", required=True,
@@ -38,11 +38,11 @@ image = cv2.imread(args["image"])
 #cv2.imshow("Image", image)
 #image = find_boundary(image)
 
-crop_ext(image)
+image = min_bound_rect(image)
 
-#print(image.shape)
+print(image.shape)
 #cv2.imshow("Cropped", image)
-#cv2.imwrite("test2.png", image)
+cv2.imwrite("UbuntuMono-Cropped.png", image)
 
 if cv2.waitKey(0) & 0xFF == 'q':
     sys.exit()
