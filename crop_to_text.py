@@ -8,7 +8,7 @@ def min_bound_rect(image):
 
     small = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
     grad = cv2.morphologyEx(small, cv2.MORPH_GRADIENT, kernel)
 
     _, bw = cv2.threshold(grad, 0.0, 255.0, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
@@ -24,7 +24,7 @@ def min_bound_rect(image):
     mask[y:y+h, x:x+w] = 0
     cv2.drawContours(mask, contours, 0, (255, 255, 255), -1)
     r = float(cv2.countNonZero(mask[y:y+h, x:x+w])) / (w * h)
-
+    
     if r > 0.45 and w > 8 and h > 8:
         return image[y:y+h, x:x+w]
 
