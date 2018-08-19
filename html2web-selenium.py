@@ -26,6 +26,7 @@ index = 1
 
 for html_file in html_file_list:
 
+    print(html_file)
     # get the name into the right format
     temp_name = "file://" + html_file
 
