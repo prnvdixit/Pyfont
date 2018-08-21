@@ -2,7 +2,6 @@ import cv2
 import argparse
 import sys
 import numpy as np
-import imutils
 
 def min_bound_rect(image):
 
