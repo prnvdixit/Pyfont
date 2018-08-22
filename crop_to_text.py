@@ -27,21 +27,24 @@ def min_bound_rect(image):
     if r > 0.45 and w > 8 and h > 8:
         return image[y:y+h, x:x+w]
 
-ap = argparse.ArgumentParser()
-ap.add_argument("-i", "--image", required=True,
-    help="path to image to crop")
-args = vars(ap.parse_args())
+def fit_to_text(image):
 
-image = cv2.imread(args["image"])
-#print(image.shape)
-#cv2.imshow("Image", image)
-#image = find_boundary(image)
+    image = min_bound_rect(image)
 
-image = min_bound_rect(image)
+    #print(image.shape)
+    #cv2.imshow("Cropped", image)
+    cv2.imwrite("UbuntuMono-Cropped.png", image)
 
-print(image.shape)
-#cv2.imshow("Cropped", image)
-cv2.imwrite("UbuntuMono-Cropped.png", image)
+if __name__ == "__main__":
 
-if cv2.waitKey(0) & 0xFF == 'q':
-    sys.exit()
+    ap = argparse.ArgumentParser()
+    ap.add_argument("-i", "--image", required=True,
+        help="path to image to crop")
+    args = vars(ap.parse_args())
+
+    image = cv2.imread(args["image"])
+    #print(image.shape)
+    #cv2.imshow("Image", image)
+    #image = find_boundary(image)
+
+    fit_to_text(image)

@@ -26,33 +26,33 @@ import subprocess
 #
 #    return downscaled_image
 
+def return_text(image):
 
-ap = argparse.ArgumentParser()
-ap.add_argument("-i", "--image", required=True,
-    help="path to image to get text from")
-args = vars(ap.parse_args())
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    image = cv2.fastNlMeansDenoising(image, None, 10, 3, 7)
 
-image = cv2.imread(args["image"])
-#cv2.imshow("Input image", image)
+    cv2.imshow("Gray", image)
 
-#deskewed_cropped_image = fix_skewness(cropped_image)
+    image = cv2.adaptiveThreshold(image, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 41, 10) 
 
-#image = downscale_image(args)
-image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-image = cv2.fastNlMeansDenoising(image, None, 10, 3, 7)
+    filename = "x.png"
+    cv2.imwrite(filename, image)
 
-cv2.imshow("Gray", image)
+    text = pytesseract.image_to_string(Image.open(filename))
+    print(text)
 
-image = cv2.adaptiveThreshold(image, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 41, 10) 
+if __name__ == "__main__":
 
+    ap = argparse.ArgumentParser()
+    ap.add_argument("-i", "--image", required=True,
+        help="path to image to get text from")
+    args = vars(ap.parse_args())
 
-filename = "x.png"
-cv2.imwrite(filename, image)
+    image = cv2.imread(args["image"])
+    #cv2.imshow("Input image", image)
 
-text = pytesseract.image_to_string(Image.open(filename))
-print(text)
+    #deskewed_cropped_image = fix_skewness(cropped_image)
 
-cv2.imshow("Image", image)
+    #image = downscale_image(args)
 
-if cv2.waitKey(0) & 0xFF == 'q':
-    sys.exit()
+    return_text(image)
