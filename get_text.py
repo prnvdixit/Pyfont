@@ -12,6 +12,9 @@ import os
 import sys
 import subprocess
 
+import file_names
+import crop_to_text
+
 #def downscale_image(args):
 #    
 #    DPI = 300
@@ -31,15 +34,17 @@ def return_text(image):
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     image = cv2.fastNlMeansDenoising(image, None, 10, 3, 7)
 
-    cv2.imshow("Gray", image)
+    #cv2.imshow("Gray", image)
 
     image = cv2.adaptiveThreshold(image, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 41, 10) 
 
-    filename = "x.png"
+    filename = file_names.denoised_threshed_input_image
+    image = crop_to_text.fit_to_text(image)
     cv2.imwrite(filename, image)
 
     text = pytesseract.image_to_string(Image.open(filename))
-    print(text)
+    
+    return text
 
 if __name__ == "__main__":
 
@@ -55,4 +60,4 @@ if __name__ == "__main__":
 
     #image = downscale_image(args)
 
-    return_text(image)
+    print(return_text(image))

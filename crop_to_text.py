@@ -3,12 +3,12 @@ import argparse
 import sys
 import numpy as np
 
-def min_bound_rect(image):
+def fit_to_text(image):
 
-    small = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    #small = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
-    grad = cv2.morphologyEx(small, cv2.MORPH_GRADIENT, kernel)
+    grad = cv2.morphologyEx(image, cv2.MORPH_GRADIENT, kernel)
 
     _, bw = cv2.threshold(grad, 0.0, 255.0, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
 
@@ -26,14 +26,7 @@ def min_bound_rect(image):
     
     if r > 0.45 and w > 8 and h > 8:
         return image[y:y+h, x:x+w]
-
-def fit_to_text(image):
-
-    image = min_bound_rect(image)
-
-    #print(image.shape)
-    #cv2.imshow("Cropped", image)
-    cv2.imwrite("UbuntuMono-Cropped.png", image)
+    
 
 if __name__ == "__main__":
 
@@ -47,4 +40,8 @@ if __name__ == "__main__":
     #cv2.imshow("Image", image)
     #image = find_boundary(image)
 
-    fit_to_text(image)
+    image = fit_to_text(image)
+
+    #print(image.shape)
+    #cv2.imshow("Cropped", image)
+    cv2.imwrite("UbuntuMono-Cropped.png", image)
