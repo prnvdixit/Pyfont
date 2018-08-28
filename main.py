@@ -4,6 +4,8 @@ import argparse
 import get_text
 import fill_html
 
+import operator
+
 if __name__ == "__main__":
     
     ap = argparse.ArgumentParser()
@@ -16,4 +18,7 @@ if __name__ == "__main__":
     ocr_text = get_text.return_text(image)
     #print(ocr_text)
     error_values = fill_html.screenshot_html(args, ocr_text)
-    print(error_values)
+
+    error_values_sort = sorted(error_values.items(), key=operator.itemgetter(1))
+
+    print(error_values_sort[:10])
