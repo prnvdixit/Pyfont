@@ -10,3 +10,13 @@ PyFont is a command-line application to detect fonts of text in images. It can b
 - Numpy
 - Selenium Webdriver
 - Pytesseract
+
+## Working
+
+## Known Issues
+
+## Future work
+
+## Contributors
+
+## License
