@@ -1,21 +1,40 @@
 # PyFont
 
+[![made with &hearts in Python](https://img.shields.io/badge/made%20with%20%E2%9D%A4%20in-Python-red.svg)](http://shields.io/#your-badge)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+
+
+## Description
+
 PyFont is a command-line application to detect fonts of text in images. It can be configured to include fonts existing in the system (eg. paid ones) as well.
 
 ## Dependencies
 
-- Python3
-- OpenCV
-- Argparse
-- Numpy
-- Selenium Webdriver
-- Pytesseract
+- [Python 3.*]((https://www.python.org/))
+- [OpenCV](https://opencv.org/)
+- [Argparse](https://pypi.org/project/argparse/)
+- [Numpy](https://www.numpy.org/)
+- [Selenium Webdriver](https://www.seleniumhq.org/download/)
+- [Pytesseract](https://pypi.org/project/pytesseract/)
+
+## Setup
+
+Download the dependencies for your respective system.
+
+```
+git clone https://github.com/prnvdixit/Pyfont.git
+cd Pyfont/
+python3 main.py -i <image_path> <path_to_ttf_directory>
+```
 
 ## Working
 
 Tesseract library is first used for OCR - Detecting text from the image supplied. The input image is cropped to text only (omitting out the unnecessary parts and borders). The text obtained from OCR is checked against different fonts (using the ttf-directory, supplied through commandline arguments) and is checked using image similarity algorithms for best matches.
 
 ## Known Issues
+
+- Similarity doesn't seem like best possible way to compare fonts (Mostly as after pre-processing input image, some chars get distorted).
+- Currently, saving intermediate images is the only way I can come up with - It's a bottleneck in the functioning.
 
 ## Future work
 
@@ -24,5 +43,7 @@ Tesseract library is first used for OCR - Detecting text from the image supplied
 - Add tests
 
 ## Contributors
+
+* **Pranav Dixit** - [*GitHub*](https://github.com/prnvdixit) - [*LinkedIn*](https://www.linkedin.com/in/prnvdixit/)
 
 ## License
