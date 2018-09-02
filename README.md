@@ -1,8 +1,10 @@
 # PyFont
 
 [![made with &hearts in Python](https://img.shields.io/badge/made%20with%20%E2%9D%A4%20in-Python-red.svg)](http://shields.io/#your-badge)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![License MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/prnvdixit/Pyfont/blob/master/LICENSE)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](https://github.com/prnvdixit/Pyfont/fork)
 
+![](PyFont.png)
 
 ## Description
 
@@ -10,7 +12,7 @@ PyFont is a command-line application to detect fonts of text in images. It can b
 
 ## Dependencies
 
-- [Python 3.*]((https://www.python.org/))
+- [Python 3.*](https://www.python.org/)
 - [OpenCV](https://opencv.org/)
 - [Argparse](https://pypi.org/project/argparse/)
 - [Numpy](https://www.numpy.org/)
@@ -47,3 +49,5 @@ Tesseract library is first used for OCR - Detecting text from the image supplied
 * **Pranav Dixit** - [*GitHub*](https://github.com/prnvdixit) - [*LinkedIn*](https://www.linkedin.com/in/prnvdixit/)
 
 ## License
+
+See the LICENSE.md file for license rights and limitations (MIT).
