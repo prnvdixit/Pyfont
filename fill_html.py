@@ -1,7 +1,10 @@
 import cv2
+from PIL import Image
+import io
 
 import os
 import argparse
+import numpy as np
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -47,21 +50,39 @@ def screenshot_html(args, ocr_text):
                     temp_name = "file://" + "/home/prnvdixit/Codes/Pyfont/" + file_names.edited_html
 
                     driver.get(temp_name)
-                    save_name = file_names.full_page_html_image
-                    driver.save_screenshot(save_name)
+                    screenshot_image = driver.get_screenshot_as_png()
+                    #save_name = file_names.full_page_html_image
 
+                    #driver.save_screenshot(save_name)
                     # Save cropped HTML page image
-                    image = cv2.imread(save_name, cv2.IMREAD_GRAYSCALE)
-                    image = crop_to_text.fit_to_text(image)
+                    #screenshot_image = cv2.imread(save_name, cv2.IMREAD_GRAYSCALE)
+
+                    screenshot_image = Image.open(io.BytesIO(screenshot_image))
+
+                    r, g, b, a = cv2.split(np.asarray(screenshot_image))
+                    contrast = cv2.merge([b, g, r])
+                    # Reads the enhanced image and converts it to grayscale, creates new file
+                    screenshot_image = cv2.cvtColor(contrast, cv2.COLOR_BGR2GRAY)
+                    #screenshot_image = cv2.cvtColor(np.asarray(screenshot_image), cv2.COLOR_BGR2GRAY)
+                    #cv2.imshow("Frame", screenshot_image)
+                    #cv2.waitKey(1000)
+
+
+                    image = crop_to_text.fit_to_text(screenshot_image)
                     cv2.imwrite(file_names.cropped_html_image, image)
 
                     # Call error values
                     error_val = compare_img.mse(cv2.imread(file_names.cropped_html_image),
-                    cv2.imread(file_names.denoised_threshed_input_image))
+                                                cv2.imread(file_names.denoised_threshed_input_image)
+                                                )
 
                     error_values[font_name] = error_val
                     index += 1
-            except:
+
+                    #if cv2.waitKey(1000) & 0xFF == ord('q'):
+                    #    cv2.destroyAllWindows()
+            except Exception as e:
+                print(e)
                 print(index)
                 print(fam_name)
 
@@ -76,4 +97,4 @@ if __name__ == "__main__":
     args = vars(ap.parse_args())
 
     ocr_text = "Jennifer Niedersl Robbins"
-    screenshot_html(args, ocr_text)
+    print(screenshot_html(args, ocr_text))
