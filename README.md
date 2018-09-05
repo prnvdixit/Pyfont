@@ -35,14 +35,14 @@ Tesseract library is first used for OCR - Detecting text from the image supplied
 
 ## Known Issues
 
-- Similarity doesn't seem like best possible way to compare fonts (Mostly as after pre-processing input image, some chars get distorted).
-- Currently, saving intermediate images is the only way I can come up with - It's a bottleneck in the functioning.
+- [ ] Similarity doesn't seem like best possible way to compare fonts (Mostly as after pre-processing input image, some chars get distorted).
+- [x] Currently, saving intermediate images is the only way I can come up with - It's a bottleneck in the functioning.
 
 ## Future work
 
-- Add rotational invariance for input images
-- Use Google API (give a cmd arguement for same) instead of downloading the .ttf files
-- Add tests
+- [ ] Add rotational invariance for input images
+- [ ] Use Google API (give a cmd arguement for same) instead of downloading the .ttf files
+- [ ] Add tests
 
 ## Contributors
 
